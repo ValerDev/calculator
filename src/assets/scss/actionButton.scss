@@ -1,0 +1,27 @@
+@import "./variables";
+@import "../../App.scss";
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $primary-color;
+    height: 20%;
+    cursor: pointer;
+    &:hover {
+        background-color: $primary-hover-color;
+
+        span {
+            color: $font-dark-color;
+        }
+    }
+
+    &:active {
+        background-color: $primary-active-color;
+    }
+
+    span {
+        color: $font-light-color;
+        font-size: 30px;
+    }
+}

@@ -1,0 +1,35 @@
+@import './assets/scss/variables';
+
+* {
+  font-family: cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $scroolbar-color;
+    border-radius: 4px;
+
+    &:hover {
+      background: $scroolbar-hover-color;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $scroolbar-background-color;
+    border-radius: 4px;
+
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $scroolbar-color;
+    scrollbar-track-color: $scroolbar-background-color;
+  }
+}
