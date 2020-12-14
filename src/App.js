@@ -3,14 +3,14 @@ import "./index.scss"
 import "./App.scss"
 import NumberButton from './components/NumberButton';
 import ActionButton from './components/ActionButton';
-import {useState} from 'react'
+import { useState } from 'react'
 
 function App() {
   const state = {
     validInput: /^[A-Za-z]+$/,
+    value: 0,
   }
-
-  const [theme, setTheme] = useState(false) 
+  const [theme, setTheme] = useState(false)
   const changeTheme = () => {
     setTheme(!theme)
   }
@@ -25,44 +25,39 @@ function App() {
     }
     setTimeout(() => {
       document.querySelector(".calculator .input-output-block>.warning").style.opacity = '0'
-    }, 1000)
-    
+    }, 800)
   }
-  
+
+  setTimeout(() => {
+    document.querySelectorAll(".action-button").forEach(btn => {
+      btn.onclick = () => {
+        state.value = btn.innerText
+        document.querySelector("input").value = document.querySelector("input").value + state.value
+      }
+    })
+
+    document.querySelectorAll(".number-button").forEach(btn => {
+      btn.onclick = () => {
+        state.value = btn.innerText
+        document.querySelector("input").value = document.querySelector("input").value + state.value
+      }
+    })
+  }, 0)
   return (
-    <div id="App" className={theme ? "app light":"app dark"}>
-      <button className={theme ? "theme-btn light":"theme-btn dark"} onClick={changeTheme}>Change Theme</button>
+    <div id="App" className={theme ? "app light" : "app dark"}>
+      <button className={theme ? "theme-btn light" : "theme-btn dark"} onClick={changeTheme}>Change Theme</button>
       <div className="calculator">
         <div className={theme ? "input-output-block light" : "input-output-block dark"}>
           <span className="warning">Must contain only numbers or actions</span>
-          <input type="text" onChange={handleInput} className={theme ? "light":"dark"}/>
+          <input type="text" onChange={handleInput} className={theme ? "light" : "dark"} />
         </div>
         <div className="actions-numbers-block">
           <div className="left-side">
-            <ActionButton action="-" theme={theme}/>
-            <ActionButton action="/" theme={theme} />
-            <ActionButton action="*" theme={theme} />
-            <NumberButton number="7" theme={theme} />
-            <NumberButton number="8" theme={theme} />
-            <NumberButton number="9" theme={theme} />
-            <NumberButton number="4" theme={theme} />
-            <NumberButton number="5" theme={theme} />
-            <NumberButton number="6" theme={theme} />
-            <NumberButton number="1" theme={theme} />
-            <NumberButton number="2" theme={theme} />
-            <NumberButton number="3" theme={theme} />
-            <NumberButton number="0" theme={theme} width="66.666%" />
-            <NumberButton number="." theme={theme} />
+            {["-", "/", "*"].map(action => <ActionButton action={action} theme={theme} />)}
+            {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0, '.'].map(num => <NumberButton number={num} theme={theme} />)}
           </div>
           <div className="right-side">
-            <ActionButton action="^" width="100%" theme={theme}/>
-            <ActionButton action="/" width="100%" theme={theme}/>
-            <ActionButton action="x" width="100%" theme={theme}/>
-            <div className="parentheses">
-              <NumberButton number="(" width="100%" theme={theme}/>
-              <NumberButton number=")" width="100%" theme={theme}/>
-            </div>
-            <ActionButton action="=" width="100%" theme={theme}/>
+            {["c", "+", "(", ")", "="].map(action => <ActionButton action={action} theme={theme} />)}
           </div>
         </div>
       </div>
