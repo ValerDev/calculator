@@ -3,12 +3,13 @@ import "./index.scss"
 import "./App.scss"
 import NumberButton from './components/NumberButton';
 import ActionButton from './components/ActionButton';
+import ClearButton from './components/clearButton';
 import { useState } from 'react'
+import EqualButton from './components/equalBuntton';
 
 function App() {
   const state = {
     validInput: /^[A-Za-z]+$/,
-    value: 0,
   }
   const [theme, setTheme] = useState(false)
   const changeTheme = () => {
@@ -27,29 +28,13 @@ function App() {
       document.querySelector(".calculator .input-output-block>.warning").style.opacity = '0'
     }, 800)
   }
-
-  setTimeout(() => {
-    document.querySelectorAll(".action-button").forEach(btn => {
-      btn.onclick = () => {
-        state.value = btn.innerText
-        document.querySelector("input").value = document.querySelector("input").value + state.value
-      }
-    })
-
-    document.querySelectorAll(".number-button").forEach(btn => {
-      btn.onclick = () => {
-        state.value = btn.innerText
-        document.querySelector("input").value = document.querySelector("input").value + state.value
-      }
-    })
-  }, 0)
   return (
     <div id="App" className={theme ? "app light" : "app dark"}>
       <button className={theme ? "theme-btn light" : "theme-btn dark"} onClick={changeTheme}>Change Theme</button>
       <div className="calculator">
         <div className={theme ? "input-output-block light" : "input-output-block dark"}>
           <span className="warning">Must contain only numbers or actions</span>
-          <input type="text" onChange={handleInput} className={theme ? "light" : "dark"} />
+          <input type="text" onChange={handleInput} className={theme ? "light" : "dark"} onSubmit={() => { console.log(111); }} />
         </div>
         <div className="actions-numbers-block">
           <div className="left-side">
@@ -57,7 +42,10 @@ function App() {
             {[9, 8, 7, 6, 5, 4, 3, 2, 1, 0, '.'].map(num => <NumberButton number={num} theme={theme} />)}
           </div>
           <div className="right-side">
-            {["c", "+", "(", ")", "="].map(action => <ActionButton action={action} theme={theme} />)}
+            <ClearButton theme={theme} />
+            {["+"].map(action => <ActionButton action={action} theme={theme} />)}
+            {["(", ")"].map(num => <NumberButton number={num} theme={theme} />)}
+            <EqualButton theme={theme} />
           </div>
         </div>
       </div>

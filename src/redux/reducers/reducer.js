@@ -1,15 +1,14 @@
 import { createReducer } from '../createReducer';
-import { MENU } from '../actiontypes';
+import { OPERATIONS } from '../actiontypes';
 
-const { SHOW_MENU } = MENU;
+const { PLUS } = OPERATIONS;
 
-const isShow = createReducer(false, (state, { value }) => {
-    // console.log("value:", value);
+const plus = createReducer(false, (state, { value }) => {
     return {
-        [SHOW_MENU]: value,
+        [ PLUS ]: value,
     };
 });
 
 export default {
-    isShow,
+    plus,
 };

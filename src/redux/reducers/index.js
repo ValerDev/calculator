@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import  isShow from './reducer';
+import  plus from './reducer';
 
 
 export default combineReducers({
-   ...isShow
+   ...plus
 });
